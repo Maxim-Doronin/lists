@@ -6,4 +6,5 @@ struct NODE
 	NODE *pNext;
 };
 
-void negative(NODE *&pFirst);
+int negativeInPlace(NODE *&pFirst);
+NODE* negativeCopy(NODE *&pFirstSourse);
