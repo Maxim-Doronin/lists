@@ -5,8 +5,8 @@
 
 int main()
 {
-	NODE *l1 = new NODE;
-	NODE *tmp = l1;
+	NODE *list = new NODE;
+	NODE *tmp = list;
 	srand(time(0));
 	for(int i=0; i<10; i++)
 	{
@@ -16,27 +16,30 @@ int main()
 		tmp = tmp->pNext;
 	}
 	tmp->pNext = 0;
-	/*tmp = l1;
-	std::cout<< "\n";
 	
+	
+	NODE *even = new NODE;
+	NODE *odd = new NODE;
 
-	int count = negativeInPlace(tmp);
-	while (tmp != 0)
-	{
-		std::cout << tmp->key << " ";
-		tmp = tmp->pNext;
-	}
-	*/
-	tmp = l1;
-	std::cout<< "\n";
+	EvenOdd(list, odd, even);
 
-	NODE* copy;
-	copy = negativeCopy(tmp);
-	while (copy != NULL)
+	std::cout << "\n";
+
+	while (even != 0)
 	{
-		std::cout << copy->key << " ";
-		copy = copy->pNext;
+		std::cout << even->key<< " ";
+		even = even->pNext;
 	}
+
+	std::cout << "\n";
+
+	while (odd != 0)
+	{
+		std::cout << odd->key<< " ";
+		odd = odd->pNext;
+	}
+
+	std::cout << "\n";
 
 	return 0;
 }
