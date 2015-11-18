@@ -8,7 +8,7 @@ int main()
 	NODE *list = new NODE;
 	NODE *tmp = list;
 	srand(time(0));
-	for(int i=0; i<10; i++)
+	for(int i=0; i<5; i++)
 	{
 		tmp->key = 50 - rand()%100;
 		std::cout << tmp->key << " ";
@@ -18,8 +18,8 @@ int main()
 	tmp->pNext = 0;
 	
 	
-	NODE *even = new NODE;
-	NODE *odd = new NODE;
+	NODE *even = 0;
+	NODE *odd = 0;
 
 	EvenOdd(list, odd, even);
 

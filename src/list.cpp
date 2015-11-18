@@ -1,10 +1,8 @@
 #include "list.h"
 
-int  negativeInPlace(NODE *&pFirst) 
+void  negativeInPlace(NODE *&pFirst) 
 {
-	int count = 0; //количство отриц. элементов 
-	
-	if (pFirst == 0) return count;
+	if (pFirst == 0) return;
 	while ((pFirst->pNext != 0)&&(pFirst->key > 0))
 	{
 		pFirst = pFirst->pNext;
@@ -14,7 +12,6 @@ int  negativeInPlace(NODE *&pFirst)
 	while (res->pNext != 0)
 	{
 		NODE *tmp = res;
-		count++;
 		while((tmp->pNext != 0)&&(tmp->pNext->key > 0))
 		{
 			tmp = tmp->pNext;
@@ -25,8 +22,6 @@ int  negativeInPlace(NODE *&pFirst)
 		}
 		res = res->pNext;	
 	}
-	
-	return count;
 }
 
 

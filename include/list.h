@@ -6,6 +6,6 @@ struct NODE
 	NODE *pNext;
 };
 
-int negativeInPlace(NODE *&pFirst);
+void negativeInPlace(NODE *&pFirst);
 NODE* negativeCopy(NODE *&pFirstSourse);
 void EvenOdd(NODE *&pFirst, NODE *&pFirstOdd, NODE *&pFirstEven);
