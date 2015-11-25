@@ -116,6 +116,11 @@ int List::findPrev(int key, NODE *&point, NODE *&pPrev)
 	return 1;
 }
 
+int List::getFirst() const
+{
+	return pFirst->key;
+}
+
 void List::insertionFirst(int key)
 {
 	NODE *tmp = new NODE;
@@ -126,11 +131,18 @@ void List::insertionFirst(int key)
 
 void List::insertionEnd(int key)
 {
+	if (pFirst == 0) 
+	{
+		insertionFirst(key);
+		pFirst->pNext = 0;
+		return;
+	}
 	NODE *tmp = pFirst;
 	while(tmp->pNext != 0)
 		tmp = tmp->pNext;
 	tmp->pNext = new NODE;
 	tmp->pNext->key = key;
+	tmp->pNext->pNext = 0;
 }
 
 void List::insertionPrev(int key, NODE *&elem)
@@ -154,6 +166,18 @@ void List::insertionNext(int key, NODE *&elem)
 	if (point == 0) return;
 	elem->pNext = point->pNext;
 	point->pNext = elem;
+}
+
+void List::insertionNext(NODE *elem, NODE *&newElem)
+{
+	NODE *tmp = pFirst;
+	while ((tmp != 0)&&(tmp != elem))
+		tmp = tmp->pNext;
+	if (tmp == elem)
+	{
+		newElem->pNext = elem->pNext;
+		elem->pNext = newElem;
+	}
 }
 
 int List::del(int key)
@@ -251,3 +275,54 @@ void List::sort()
 		del(min);
 	}
 }
+
+void List::replaceList(List *&list1, List *&list2)
+{
+	if (list1 == 0) return;
+	
+	NODE *start = pFirst;
+	NODE *tmp;
+	NODE *prev = 0;
+	NODE *tmp1 = list1->pFirst;
+	NODE *tmp2;
+	
+	while (start != 0){
+		if (start->key == tmp1->key)
+		{
+			tmp = start;
+			while ((tmp1 != 0)&&(tmp != 0))		//проверка
+			{
+				if (tmp->key != tmp1->key) break;
+				tmp = tmp->pNext;
+				tmp1 = tmp1->pNext;
+			}
+			if (tmp1 == 0)						//замена
+			{
+				tmp = start;
+				tmp1 = list1->pFirst;
+				NODE* pPrev = 0;
+				while ((tmp1 != 0)&&(tmp != 0))			//удаление
+				{
+					pPrev = tmp;
+					tmp = tmp->pNext;
+					tmp1 = tmp1->pNext;
+					del(pPrev);
+				}
+				tmp2 = list2->pFirst;
+				while(tmp2 != 0)						//вставка
+				{
+					NODE *newElem = new NODE;
+					newElem->key = tmp2->key;
+					insertionNext(prev, newElem);
+					prev = prev->pNext;
+					tmp2 = tmp2->pNext;
+				}
+				start = prev;
+			}
+			tmp1 = list1->pFirst;
+		}
+		prev = start;
+		start = start->pNext;
+	}
+}
+		
